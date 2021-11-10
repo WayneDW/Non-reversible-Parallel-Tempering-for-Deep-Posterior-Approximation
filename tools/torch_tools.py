@@ -86,10 +86,7 @@ class BayesEval:
         self.best_bma_nll = float('inf')
         self.acc_weights = 0
 
-        self.prob_avg_seen = {1: []} if data == 'cifar100' else {1: [], 2: []}
-        self.prob_avg_unseen = {1: []} if data == 'cifar100' else {1: [], 2: []}
-
-    def eval(self, data, net, test_loader, extra_loader, criterion, weight=1,  bma=False, uq=False, print_tag=True):
+    def eval(self, data, net, test_loader, criterion, weight=1,  bma=False, uq=False, print_tag=True):
         net.eval()
         one_correct, bma_correct, self.nll, self.bma_nll = 0, 0, 0, 0
         """ Non-convex optimization """
@@ -130,8 +127,6 @@ class StochasticWeightAvg:
         self.best_cur_nll = float('inf')
         self.best_bma_nll = float('inf')
         self.bma = []
-        self.prob_avg_seen = {1: []} if data == 'cifar100' else {1: [], 2: []}
-        self.prob_avg_unseen = {1: []} if data == 'cifar100' else {1: [], 2: []}
 
         """ swag-diag """
         self.best_cur_acc_diag = 0
@@ -139,8 +134,6 @@ class StochasticWeightAvg:
         self.best_cur_nll_diag = float('inf')
         self.best_bma_nll_diag = float('inf')
         self.bma_diag = []
-        self.prob_avg_seen_diag = {1: []} if data == 'cifar100' else {1: [], 2: []}
-        self.prob_avg_unseen_diag = {1: []} if data == 'cifar100' else {1: [], 2: []}
 
         self.counter = [0] * cycle
         self.count_test = 1
@@ -201,7 +194,7 @@ class StochasticWeightAvg:
         random_swag_diag.eval()
         return random_swag_diag, random_swag
     
-    def inference(self, data, cycle_idx, train_loader, test_loader, extra_loader, criterion, lr, repeats=10):
+    def inference(self, data, cycle_idx, train_loader, test_loader, criterion, lr, repeats=10):
         self.models[cycle_idx].eval()
         print('Generate random models in testing period for Bayesian model averaging')
         for counter in range(repeats):
@@ -237,10 +230,6 @@ class StochasticWeightAvg:
             self.best_bma_nll_diag = min(self.best_bma_nll_diag, bma_nll_diag)
             print('SWAG-diag model {} cur acc {:0.2f} BMA acc {:0.2f} Best acc {:0.2f} Best BMA: {:0.2f} NLL {:.1f} Best BMA NLL: {:.1f}'.format(\
                     counter, cur_one_acc_diag, cur_bma_acc_diag, self.best_cur_acc_diag, self.best_bma_acc_diag, bma_nll_diag, self.best_bma_nll_diag))
-            if counter < repeats - 1:
-                uncertainty_estimation(data, net_diag, test_loader, extra_loader, self.prob_avg_seen_diag, self.prob_avg_unseen_diag, 1., self.count_test, self.count_test, print_tag=False, info='swag-diag')
-            else:
-                uncertainty_estimation(data, net_diag, test_loader, extra_loader, self.prob_avg_seen_diag, self.prob_avg_unseen_diag, 1., self.count_test, self.count_test, print_tag=True, info='swag-diag')
 
 
             """ eval SWAG model """
@@ -273,9 +262,4 @@ class StochasticWeightAvg:
             self.best_bma_nll = min(self.best_bma_nll, bma_nll)
             print('SWAG      model {} cur acc {:0.2f} BMA acc {:0.2f} Best acc {:0.2f} Best BMA: {:0.2f} NLL {:.1f} Best BMA NLL: {:.1f}\n'.format(\
                     counter, cur_one_acc, cur_bma_acc, self.best_cur_acc, self.best_bma_acc, bma_nll, self.best_bma_nll))
-            if counter < repeats - 1:
-                uncertainty_estimation(data, net, test_loader, extra_loader, self.prob_avg_seen, self.prob_avg_unseen, 1., self.count_test, self.count_test, print_tag=False, info='swag')
-            else:
-                uncertainty_estimation(data, net, test_loader, extra_loader, self.prob_avg_seen, self.prob_avg_unseen, 1., self.count_test, self.count_test, print_tag=True, info='swag')
-
             self.count_test += 1

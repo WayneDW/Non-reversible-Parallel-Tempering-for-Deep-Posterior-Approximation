@@ -94,44 +94,11 @@ def main():
                 net = cifar_models.__dict__['resnet'](num_classes=10, depth=pars.depth).cuda()
             elif pars.data == 'cifar100':
                 net = cifar_models.__dict__['resnet'](num_classes=100, depth=pars.depth).cuda()
-        elif pars.model == 'wrn':
-            if pars.data == 'cifar10':
-                net = cifar_models.__dict__['wrn'](num_classes=10, depth=16, widen_factor=8, dropRate=0).cuda()
-            elif pars.data == 'cifar100':
-                net = cifar_models.__dict__['wrn'](num_classes=100, depth=16, widen_factor=8, dropRate=0).cuda()
-        elif pars.model == 'wrn28':
-            if pars.data == 'cifar10':
-                net = cifar_models.__dict__['wrn'](num_classes=10, depth=28, widen_factor=10, dropRate=0).cuda()
-            elif pars.data == 'cifar100':
-                net = cifar_models.__dict__['wrn'](num_classes=100, depth=28, widen_factor=10, dropRate=0).cuda()
-        elif pars.model == 'pyramid-s':
-            if pars.data == 'cifar10':
-                net = PYRM.PyramidNet(dataset='cifar10', depth=110, alpha=84, num_classes=10, bottleneck=False).cuda()
-            elif pars.data == 'cifar100':
-                net = PYRM.PyramidNet(dataset='cifar100', depth=110, alpha=84, num_classes=100, bottleneck=False).cuda()
-        elif pars.model == 'pyramid-m':
-            if pars.data == 'cifar10':
-                net = PYRM.PyramidNet(dataset='cifar10', depth=110, alpha=270, num_classes=10, bottleneck=False).cuda()
-            elif pars.data == 'cifar100':
-                net = PYRM.PyramidNet(dataset='cifar100', depth=110, alpha=270, num_classes=100, bottleneck=False).cuda()
-        elif pars.model == 'pyramid-l':
-            if pars.data == 'cifar10':
-                net = PYRM.PyramidNet(dataset='cifar10', depth=272, alpha=200, num_classes=10, bottleneck=True).cuda()
-            elif pars.data == 'cifar100':
-                net = PYRM.PyramidNet(dataset='cifar100', depth=272, alpha=200, num_classes=100, bottleneck=True).cuda()
 
         nets.append(pickle.loads(pickle.dumps(net)))
 
     """ Step 2: Load Data """
     train_loader, test_loader = loader(pars.batch, pars.batch, pars)
-
-    transform_test = transforms.Compose([
-        transforms.ToTensor(),
-        transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),])
-
-    notcifar = datasets.SVHN(root='./data/SVHN', split='test', download=True, transform=transform_test)
-    extra_loader = data.DataLoader(notcifar, batch_size=pars.batch, shuffle=False, num_workers=0)
-
 
     PATH = './output/checkpoints_' + pars.model + str(pars.depth) + '/'
     candidate_models = os.listdir(PATH)
@@ -143,11 +110,11 @@ def main():
 
     """ Step 4: Bayesian Sampling """
     if pars.type == 'vanilla':
-        trainer_vanilla_ensemble(nets, train_loader, test_loader, extra_loader, pars)
+        trainer_vanilla_ensemble(nets, train_loader, test_loader, pars)
     elif pars.type == 'cyc':
-        trainer_cyc_ensemble(nets, train_loader, test_loader, extra_loader, pars)
+        trainer_cyc_ensemble(nets, train_loader, test_loader, pars)
     else:
-        trainer(nets, train_loader, test_loader, extra_loader, pars)
+        trainer(nets, train_loader, test_loader, pars)
     
     
 

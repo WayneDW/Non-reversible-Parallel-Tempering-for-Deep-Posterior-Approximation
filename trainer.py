@@ -44,7 +44,7 @@ CUDA_EXISTS = torch.cuda.is_available()
 
 
 """ For standard baseline ensemble """
-def trainer_vanilla_ensemble(nets, train_loader, test_loader, extra_loader, pars):
+def trainer_vanilla_ensemble(nets, train_loader, test_loader, pars):
     criterion = nn.CrossEntropyLoss()
     samplers = {}
     for idx in range(pars.chains):
@@ -66,21 +66,21 @@ def trainer_vanilla_ensemble(nets, train_loader, test_loader, extra_loader, pars
         """ Report results """
         if epoch % pars.chains == 0:
             for idx in range(pars.chains-1, -1, -1):
-                BMA.eval(pars.data, nets[idx], test_loader, extra_loader, criterion, bma=True, uq=True)
+                BMA.eval(pars.data, nets[idx], test_loader, criterion, bma=True, uq=True)
             print('Epoch {} lr: {:.4f} Acc: {:0.2f} BMA: {:0.2f} Best Acc: {:0.2f} Best BMA: {:0.2f}'.format(\
                     epoch,  pars.lr_min,    BMA.cur_acc, BMA.bma_acc, BMA.best_cur_acc, BMA.best_bma_acc))
             print('Epoch {} NLL: {:.1f} Best NLL: {:.1f} BMA NLL: {:.1f}  Best BMA NLL: {:.1f}'.format(epoch, BMA.nll, BMA.best_nll, BMA.bma_nll, BMA.best_bma_nll))
         print('')
 
 """ Train baselines cyclic SGHMC + SWAG """
-def trainer_cyc_ensemble(nets, train_loader, test_loader, extra_loader, pars):
+def trainer_cyc_ensemble(nets, train_loader, test_loader, pars):
     criterion = nn.CrossEntropyLoss()
     sampler, BMA, SWAG = SGHMC(nets[0]), BayesEval(pars.data), StochasticWeightAvg(pars.data, cycle=100)
 
     print('Ensemble the initial modes first for fair comparison')
     for idx in range(pars.chains):
         nets[idx].eval()
-        BMA.eval(pars.data, nets[idx], test_loader, extra_loader, criterion, weight=10, bma=True, uq=True, print_tag=False)
+        BMA.eval(pars.data, nets[idx], test_loader, criterion, weight=10, bma=True, uq=True, print_tag=False)
         print('Initial ensemble Acc: {:0.2f} BMA: {:0.2f}'.format(BMA.cur_acc, BMA.bma_acc))
 
     """ the 0.1 learning rate in frequentist is equivalent to 0.1 / N in Bayesian, 
@@ -111,22 +111,22 @@ def trainer_cyc_ensemble(nets, train_loader, test_loader, extra_loader, pars):
         if cur_beta >= warm:
             SWAG.update(epoch // sub_sn, nets[0], cur_beta, warm)
             if (epoch + 1) % sub_sn == 0 and epoch >= sub_sn - 1:
-                SWAG.inference(pars.data, epoch // sub_sn, train_loader, test_loader, extra_loader, criterion, pars.lr_min/N, repeats=10)
+                SWAG.inference(pars.data, epoch // sub_sn, train_loader, test_loader, criterion, pars.lr_min/N, repeats=10)
 
-            BMA.eval(pars.data, nets[0], test_loader, extra_loader, criterion, bma=True, uq=True)
+            BMA.eval(pars.data, nets[0], test_loader, criterion, bma=True, uq=True)
             print('Epoch {} lr: {:.2e} T: {:.2e} Acc: {:0.2f} BMA: {:0.2f} Best Acc: {:0.2f} Best BMA: {:0.2f}'.format(\
                 epoch,  sampler.lr, sampler.T,    BMA.cur_acc, BMA.bma_acc, BMA.best_cur_acc, BMA.best_bma_acc))
             print('Epoch {} NLL: {:.1f} Best NLL: {:.1f} BMA NLL: {:.1f}  Best BMA NLL: {:.1f}'.format(epoch, BMA.nll, BMA.best_nll, BMA.bma_nll, BMA.best_bma_nll))
         else:
             if epoch % 10 == 0:
-                BMA.eval(pars.data, nets[0], test_loader, extra_loader, criterion, bma=False, uq=False)
+                BMA.eval(pars.data, nets[0], test_loader, criterion, bma=False, uq=False)
                 print('Epoch {} lr: {:.2e} T: {:.2e} Acc: {:0.2f} BMA: {:0.2f} Best Acc: {:0.2f} Best BMA: {:0.2f}'.format(\
                     epoch,  sampler.lr, sampler.T,    BMA.cur_acc, BMA.bma_acc, BMA.best_cur_acc, BMA.best_bma_acc))
             else:
                 print('Epoch {} lr: {:.2e} T: {:.2e}'.format(epoch,  sampler.lr, sampler.T))
 
 """ For our proposed parallel tempering methods """
-def trainer(nets, train_loader, test_loader, extra_loader, pars):
+def trainer(nets, train_loader, test_loader, pars):
     criterion = nn.CrossEntropyLoss()
 
     ratio = (pars.lr_max / pars.lr_min) ** (1. / (pars.chains-1 + 1e-10))
@@ -162,7 +162,7 @@ def trainer(nets, train_loader, test_loader, extra_loader, pars):
         print('Ensemble the initial modes first')
         for inner_idx in range(pars.chains):
             nets[inner_idx].eval()
-            BMAS[idx].eval(pars.data, nets[inner_idx], test_loader, extra_loader, criterion, weight=10, bma=True, uq=True, print_tag=False)
+            BMAS[idx].eval(pars.data, nets[inner_idx], test_loader, criterion, weight=10, bma=True, uq=True, print_tag=False)
     for epoch in range(pars.sn):
         for idx in range(pars.chains):
             nets[idx].train()
@@ -233,7 +233,7 @@ def trainer(nets, train_loader, test_loader, extra_loader, pars):
 
         """ Report results """
         for idx in range(pars.chains-1, -1, -1):
-            BMAS[idx].eval(pars.data, nets[idx], test_loader, extra_loader, criterion, bma=True, uq=False)
+            BMAS[idx].eval(pars.data, nets[idx], test_loader, criterion, bma=True, uq=False)
             print('Epoch {} Chain {} lr: {:.4f} Acc: {:0.2f} BMA: {:0.2f} Best Acc: {:0.2f} Best BMA: {:0.2f} Loss: {:0.3f} Window {} Trips {} Swaps/tentative/rate/target {}/ {:.1e}/ {:.1e}/ {:.1e} Corrections: {:0.3f}'.format(\
                     epoch, idx, current_lr[idx], BMAS[idx].cur_acc, BMAS[idx].bma_acc, BMAS[idx].best_cur_acc, BMAS[idx].best_bma_acc, \
                     np.array(loss_chains[idx]).sum(), window, round_trip, int(cumulative_swap[idx]), tentative_swap[idx] / iters, cumulative_swap[idx] / iters, pars.swap_rate, correction))

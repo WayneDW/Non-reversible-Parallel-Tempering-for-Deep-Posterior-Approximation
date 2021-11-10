@@ -61,7 +61,7 @@ def main():
     parser.add_argument('-depth', type=int, default=20, help='Model depth.')
     parser.add_argument('-batch', default=256, type=int, help='Batch size')
 
-    parser.add_argument('-lr_gap', default=5, type=float, help='gap between learning rates')
+    parser.add_argument('-lr_gap', default=5, type=float, help='decay of learning rates for simulated annealing')
     parser.add_argument('-warm', default=0.9, type=float, help='warm-up or burn-in')
 
     """ other settings """
@@ -92,31 +92,6 @@ def main():
             net = cifar_models.__dict__['resnet'](num_classes=10, depth=pars.depth).cuda()
         elif pars.data == 'cifar100':
             net = cifar_models.__dict__['resnet'](num_classes=100, depth=pars.depth).cuda()
-    elif pars.model == 'wrn':
-        if pars.data == 'cifar10':
-            net = cifar_models.__dict__['wrn'](num_classes=10, depth=16, widen_factor=8, dropRate=0).cuda()
-        elif pars.data == 'cifar100':
-            net = cifar_models.__dict__['wrn'](num_classes=100, depth=16, widen_factor=8, dropRate=0).cuda()
-    elif pars.model == 'wrn28':
-        if pars.data == 'cifar10':
-            net = cifar_models.__dict__['wrn'](num_classes=10, depth=28, widen_factor=10, dropRate=0).cuda()
-        elif pars.data == 'cifar100':
-            net = cifar_models.__dict__['wrn'](num_classes=100, depth=28, widen_factor=10, dropRate=0).cuda()
-    elif pars.model == 'pyramid-s':
-        if pars.data == 'cifar10':
-            net = PYRM.PyramidNet(dataset='cifar10', depth=110, alpha=84, num_classes=10, bottleneck=False).cuda()
-        elif pars.data == 'cifar100':
-            net = PYRM.PyramidNet(dataset='cifar100', depth=110, alpha=84, num_classes=100, bottleneck=False).cuda()
-    elif pars.model == 'pyramid-m':
-        if pars.data == 'cifar10':
-            net = PYRM.PyramidNet(dataset='cifar10', depth=110, alpha=270, num_classes=10, bottleneck=False).cuda()
-        elif pars.data == 'cifar100':
-            net = PYRM.PyramidNet(dataset='cifar100', depth=110, alpha=270, num_classes=100, bottleneck=False).cuda()
-    elif pars.model == 'pyramid-l':
-        if pars.data == 'cifar10':
-            net = PYRM.PyramidNet(dataset='cifar10', depth=272, alpha=200, num_classes=10, bottleneck=True).cuda()
-        elif pars.data == 'cifar100':
-            net = PYRM.PyramidNet(dataset='cifar100', depth=272, alpha=200, num_classes=100, bottleneck=True).cuda()
 
     """ Step 2: Load Data """
     train_loader, test_loader = loader(pars.batch, pars.batch, pars)
@@ -153,9 +128,9 @@ def main():
 
         """ Report results """
         if epoch < int(0.75*pars.warm*pars.sn):
-            BMA.eval(pars.data, net, test_loader, test_loader, criterion, bma=False, uq=False)
+            BMA.eval(pars.data, net, test_loader, criterion, bma=False, uq=False)
         else:
-            BMA.eval(pars.data, net, test_loader, test_loader, criterion, bma=True, uq=False)
+            BMA.eval(pars.data, net, test_loader, criterion, bma=True, uq=False)
         print('Epoch {} lr: {:.4f} Acc: {:0.2f} BMA: {:0.2f} Best Acc: {:0.2f} Best BMA: {:0.2f}'.format(\
                 epoch, cur_lr, BMA.cur_acc, BMA.bma_acc, BMA.best_cur_acc, BMA.best_bma_acc))
 
