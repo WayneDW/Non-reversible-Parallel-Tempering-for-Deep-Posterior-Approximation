@@ -1,0 +1,8 @@
+data
+run_gpu_bma_tune.sub
+run_gpu_bma_tune_new.sub
+run_gpu_bma_tune_new_long.sub
+run_gpu_bma_tune_new_qian.sub
+run_gpu_bma_tune_new_jiang.sub
+run_gpu_bma_tune_new_yan.sub
+nohup.out
