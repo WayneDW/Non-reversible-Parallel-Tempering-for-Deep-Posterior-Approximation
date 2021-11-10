@@ -233,10 +233,7 @@ def trainer(nets, train_loader, test_loader, extra_loader, pars):
 
         """ Report results """
         for idx in range(pars.chains-1, -1, -1):
-            if idx == 0:
-                BMAS[idx].eval(pars.data, nets[idx], test_loader, extra_loader, criterion, bma=True, uq=True, print_tag=(epoch > pars.sn/2))
-            else:
-                BMAS[idx].eval(pars.data, nets[idx], test_loader, extra_loader, criterion, bma=True, uq=False)
+            BMAS[idx].eval(pars.data, nets[idx], test_loader, extra_loader, criterion, bma=True, uq=False)
             print('Epoch {} Chain {} lr: {:.4f} Acc: {:0.2f} BMA: {:0.2f} Best Acc: {:0.2f} Best BMA: {:0.2f} Loss: {:0.3f} Window {} Trips {} Swaps/tentative/rate/target {}/ {:.1e}/ {:.1e}/ {:.1e} Corrections: {:0.3f}'.format(\
                     epoch, idx, current_lr[idx], BMAS[idx].cur_acc, BMAS[idx].bma_acc, BMAS[idx].best_cur_acc, BMAS[idx].best_bma_acc, \
                     np.array(loss_chains[idx]).sum(), window, round_trip, int(cumulative_swap[idx]), tentative_swap[idx] / iters, cumulative_swap[idx] / iters, pars.swap_rate, correction))

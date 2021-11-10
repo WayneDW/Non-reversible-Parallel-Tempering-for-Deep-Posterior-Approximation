@@ -74,85 +74,6 @@ def loader(train_size, test_size, args):
     return train_loader, test_loader
 
 
-def uncertainty_estimation(data, net, test_loader, extra_loader, prob_avg_seen, prob_avg_unseen, weight, acc_weights, counter, print_tag=True, info='vanilla'):
-    softmax = nn.Softmax(dim=1)
-    for TT in prob_avg_seen:
-        for cnt, (images, labels) in enumerate(test_loader):
-            images, labels = Variable(images).cuda(), Variable(labels).cuda()
-            prob = softmax(net.forward(images).data / TT) * (weight + 1e-10)
-            if counter == 1:
-                prob_avg_seen[TT].append(prob)
-            else:
-                prob_avg_seen[TT][cnt] += prob
-
-        for cnt, (images, labels) in enumerate(extra_loader):
-            images, labels = Variable(images).cuda(), Variable(labels).cuda()
-            prob = softmax(net.forward(images).data / TT) * (weight + 1e-10)
-            if counter == 1:
-                prob_avg_unseen[TT].append(prob)
-            else:
-                prob_avg_unseen[TT][cnt] += prob
-
-        Brier_seen, counts_seen = 0, 0
-        hist_brier_seen = [0] * 300000
-        """ CIFAR10: entropy range 0 to 2.5 each unit of width 0.05; CIFAR100: 0 ~ 5 withth 0.1 """
-        hist_entropy_seen = [0] * 50
-        hist_entropy_unseen = [0] * 50
-        train_data_classes = 10 if data == 'cifar10' else 100
-        width = 0.05 if data == 'cifar10' else 0.1
-        calibration_true, calibration_false, calibration_counts, expected = [0] * 20, [0] * 20, [0] * 20, [0] * 20
-
-        for cnt, (images, labels) in enumerate(test_loader):
-            images, labels = Variable(images).cuda(), Variable(labels).cuda()
-            prob_seen = prob_avg_seen[TT][cnt] * 1. / acc_weights # normalized weighted prob
-
-            for uidx in range(20):
-                tag = ((prob_seen.max(1)[0] > 0.05 * uidx) & (prob_seen.max(1)[0] <= 0.05 * (uidx+1)))
-                calibration_true[uidx] += (prob_seen.max(1)[1].eq(labels.data) & tag).sum().item()
-                calibration_false[uidx] += ((~prob_seen.max(1)[1].eq(labels.data)) & tag).sum().item()
-                calibration_counts[uidx] += tag.sum().item()
-                expected[uidx] += prob_seen.max(1)[0][tag == 1].sum().item()
-
-            one_hot = torch.nn.functional.one_hot(labels, num_classes=train_data_classes).float()
-            counts_seen += prob_seen.shape[0]
-            Brier_seen += torch.mean((prob_seen - one_hot)**2,dim=1).sum().item()
-            prob_seen_reg = prob_seen + 1e-20
-            entropy_idx = (torch.sum(-prob_seen_reg * torch.log(prob_seen_reg), dim=1) / width).int().tolist()
-            for idx_ in entropy_idx:
-                hist_entropy_seen[idx_] += 1
-
-        Brier_unseen = 0
-        counts_unseen = 0
-        for cnt, (images, labels) in enumerate(extra_loader):
-            images, labels = Variable(images).cuda(), Variable(labels).cuda()
-            prob_unseen = prob_avg_unseen[TT][cnt] * 1. / acc_weights
-            counts_unseen += prob_unseen.shape[0]
-            Brier_unseen += torch.mean((prob_unseen)**2,dim=1).sum().item()
-            prob_unseen_reg = prob_unseen + 1e-20
-            entropy_idx = (torch.sum(-prob_unseen_reg * torch.log(prob_unseen_reg), dim=1) / width).int().tolist()
-            for idx_ in entropy_idx:
-                hist_entropy_unseen[idx_] += 1
-
-        """ transform digits (scientific notition requires round() function) """
-        def num_dig(x, num=4): return float(str(round(x, 4))[:num])
-        calibration_acc = [num_dig(calibration_true[i] * 100.0 / (calibration_true[i] + calibration_false[i] + 1e-10)) for i in range(20)]
-        baseline_acc = [num_dig(expected[i] * 100.0 / (calibration_counts[i]+1e-10)) for i in range(20)]
-        ECE = (np.abs(np.array(calibration_acc) - np.array(baseline_acc)) * np.array(calibration_counts) * 1.0 / sum(calibration_counts)).sum()
-
-        cdf_entropy = [num_dig(sum(hist_entropy_unseen[::-1][:_cidx]) * 1.0 / sum(hist_entropy_unseen), num=5) for _cidx in range(1,len(hist_entropy_unseen)+1)]
-        if print_tag == True:
-            print('\n' + '===' * 50)
-            print('{} scaling {} Seen / Unseen / ECE {:.4f} / {:.5f} / {:.2f}'.format(info, TT, \
-                    Brier_seen/counts_seen, Brier_unseen/counts_unseen, ECE))
-            print("Entropy unseen (from high to low)")
-            print(cdf_entropy[10:])
-
-            print('Calibration acc (top: base v.s. mid: proposed v.s. bottom: counts)')
-            print(baseline_acc)
-            print(calibration_acc)
-            print(calibration_counts)
-
-
 class BayesEval:
     def __init__(self, data):
         self.counter = 1
@@ -188,8 +109,6 @@ class BayesEval:
                 bma_correct += self.bma[cnt].max(1)[1].eq(labels.data).sum().item()
                 self.bma_nll += (criterion(self.bma[cnt] * 1. / self.acc_weights, labels) * outputs.shape[0]).item()
         if bma == True:
-            if uq == True:
-                uncertainty_estimation(data, net, test_loader, extra_loader, self.prob_avg_seen, self.prob_avg_unseen, weight, self.acc_weights, self.counter, print_tag=print_tag)
             self.counter += 1
         self.cur_acc = 100.0 * one_correct / len(test_loader.dataset)
         self.bma_acc = 100.0 * bma_correct / len(test_loader.dataset)
