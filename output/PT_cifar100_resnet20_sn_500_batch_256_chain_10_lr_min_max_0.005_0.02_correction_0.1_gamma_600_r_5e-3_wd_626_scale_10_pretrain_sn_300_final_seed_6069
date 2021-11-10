@@ -1,0 +1,74 @@
+Namespace(aug=1, batch=256, chains=10, correction=0.1, data='cifar100', depth=20, gamma=600.0, gpu=0, lr_max=0.02, lr_min=0.005, model='resnet', momentum=0.9, scale=10.0, seed=543708, sn=500, swap_rate=0.005, total=50000, type='PT', wdecay=0.0005, window_custom=626)
+Downloading https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz to ./data/CIFAR100/cifar-100-python.tar.gz
+Failed download. Trying https -> http instead. Downloading http://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz to ./data/CIFAR100/cifar-100-python.tar.gz
+Using downloaded and verified file: ./data/SVHN/test_32x32.mat
+Pick model_seed_428148
+Pick model_seed_579471
+Pick model_seed_428148
+Pick model_seed_530016
+Pick model_seed_579471
+Pick model_seed_369984
+Pick model_seed_579471
+Pick model_seed_579471
+Pick model_seed_935172
+Pick model_seed_302134
+Initial learning rate 0.005 0.0058 0.0068 0.0079 0.0093 0.0108 0.0126 0.0147 0.0171 0.02 in ensemble period
+The optimal window size is 626
+Ensemble the initial modes first
+Ensemble the initial modes first
+Ensemble the initial modes first
+Epoch 0 Swap chain 1 (loss 0.671) with chain 2 (loss 0.826) Cumulative swaps 1 iters 9
+Epoch 0 Swap chain 7 (loss 0.745) with chain 8 (loss 0.887) Cumulative swaps 1 iters 13
+Epoch 0 Swap chain 5 (loss 0.784) with chain 6 (loss 0.927) Cumulative swaps 1 iters 43
+Epoch 0 Chain 9 lr: 0.0200 Acc: 56.27 BMA: 56.27 Best Acc: 56.27 Best BMA: 56.27 Loss: 1.216 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 1.0e-02/ 0.0e+00/ 5.0e-03 Corrections: 0.129
+Epoch 0 Chain 8 lr: 0.0169 Acc: 61.74 BMA: 61.74 Best Acc: 61.74 Best BMA: 61.74 Loss: 1.124 Window 626 Trips 0 Swaps/tentative/rate/target 1/ 2.0e-02/ 5.1e-03/ 5.0e-03 Corrections: 0.129
+Epoch 0 Chain 7 lr: 0.0145 Acc: 61.10 BMA: 61.10 Best Acc: 61.10 Best BMA: 61.10 Loss: 1.120 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 1.0e-02/ 0.0e+00/ 5.0e-03 Corrections: 0.129
+Epoch 0 Chain 6 lr: 0.0124 Acc: 63.57 BMA: 63.57 Best Acc: 63.57 Best BMA: 63.57 Loss: 1.000 Window 626 Trips 0 Swaps/tentative/rate/target 1/ 1.5e-02/ 5.1e-03/ 5.0e-03 Corrections: 0.129
+Epoch 0 Chain 5 lr: 0.0108 Acc: 65.72 BMA: 65.72 Best Acc: 65.72 Best BMA: 65.72 Loss: 1.011 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 1.0e-02/ 0.0e+00/ 5.0e-03 Corrections: 0.129
+Epoch 0 Chain 4 lr: 0.0086 Acc: 67.04 BMA: 67.04 Best Acc: 67.04 Best BMA: 67.04 Loss: 0.927 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 0.0e+00/ 0.0e+00/ 5.0e-03 Corrections: 0.129
+Epoch 0 Chain 3 lr: 0.0078 Acc: 66.91 BMA: 66.91 Best Acc: 66.91 Best BMA: 66.91 Loss: 0.981 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 0.0e+00/ 0.0e+00/ 5.0e-03 Corrections: 0.129
+Epoch 0 Chain 2 lr: 0.0070 Acc: 67.72 BMA: 75.36 Best Acc: 69.71 Best BMA: 75.40 Loss: 0.891 Window 626 Trips 0 Swaps/tentative/rate/target 1/ 5.1e-03/ 5.1e-03/ 5.0e-03 Corrections: 0.129
+Epoch 0 Chain 1 lr: 0.0057 Acc: 67.74 BMA: 75.38 Best Acc: 69.71 Best BMA: 75.40 Loss: 0.813 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 0.0e+00/ 0.0e+00/ 5.0e-03 Corrections: 0.129
+Epoch 0 Chain 0 lr: 0.0050 Acc: 68.60 BMA: 75.38 Best Acc: 69.71 Best BMA: 75.40 Loss: 0.779 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 0.0e+00/ 0.0e+00/ 5.0e-03 Corrections: 0.129
+Epoch 0 Chain 0 NLL: 11465.2 Best NLL: 10890.5 BMA NLL: 8435.4  Best BMA NLL: 8435.4
+
+Epoch 1 Swap chain 3 (loss 0.857) with chain 4 (loss 0.993) Cumulative swaps 1 iters 307
+Epoch 1 Chain 9 lr: 0.0200 Acc: 60.43 BMA: 63.56 Best Acc: 60.43 Best BMA: 63.56 Loss: 1.378 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 5.1e-03/ 0.0e+00/ 5.0e-03 Corrections: 0.119
+Epoch 1 Chain 8 lr: 0.0176 Acc: 64.54 BMA: 66.74 Best Acc: 64.54 Best BMA: 66.74 Loss: 1.111 Window 626 Trips 0 Swaps/tentative/rate/target 1/ 1.3e-02/ 2.6e-03/ 5.0e-03 Corrections: 0.119
+Epoch 1 Chain 7 lr: 0.0142 Acc: 64.70 BMA: 67.11 Best Acc: 64.70 Best BMA: 67.11 Loss: 1.144 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 5.1e-03/ 0.0e+00/ 5.0e-03 Corrections: 0.119
+Epoch 1 Chain 6 lr: 0.0135 Acc: 64.25 BMA: 67.26 Best Acc: 64.25 Best BMA: 67.26 Loss: 1.150 Window 626 Trips 0 Swaps/tentative/rate/target 1/ 1.3e-02/ 2.6e-03/ 5.0e-03 Corrections: 0.119
+Epoch 1 Chain 5 lr: 0.0102 Acc: 65.27 BMA: 67.63 Best Acc: 65.72 Best BMA: 67.63 Loss: 1.035 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 5.1e-03/ 0.0e+00/ 5.0e-03 Corrections: 0.119
+Epoch 1 Chain 4 lr: 0.0096 Acc: 66.97 BMA: 71.59 Best Acc: 67.04 Best BMA: 71.59 Loss: 1.121 Window 626 Trips 0 Swaps/tentative/rate/target 1/ 7.7e-03/ 2.6e-03/ 5.0e-03 Corrections: 0.119
+Epoch 1 Chain 3 lr: 0.0069 Acc: 68.06 BMA: 71.54 Best Acc: 68.06 Best BMA: 71.54 Loss: 0.983 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 0.0e+00/ 0.0e+00/ 5.0e-03 Corrections: 0.119
+Epoch 1 Chain 2 lr: 0.0068 Acc: 67.64 BMA: 75.39 Best Acc: 69.71 Best BMA: 75.40 Loss: 0.965 Window 626 Trips 0 Swaps/tentative/rate/target 1/ 5.1e-03/ 2.6e-03/ 5.0e-03 Corrections: 0.119
+Epoch 1 Chain 1 lr: 0.0055 Acc: 67.78 BMA: 75.38 Best Acc: 69.71 Best BMA: 75.40 Loss: 1.123 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 0.0e+00/ 0.0e+00/ 5.0e-03 Corrections: 0.119
+Epoch 1 Chain 0 lr: 0.0050 Acc: 68.54 BMA: 75.40 Best Acc: 69.71 Best BMA: 75.40 Loss: 1.074 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 0.0e+00/ 0.0e+00/ 5.0e-03 Corrections: 0.119
+Epoch 1 Chain 0 NLL: 11360.8 Best NLL: 10890.5 BMA NLL: 8430.4  Best BMA NLL: 8430.4
+
+Epoch 2 Chain 9 lr: 0.0200 Acc: 61.49 BMA: 66.46 Best Acc: 61.49 Best BMA: 66.46 Loss: 1.059 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 5.1e-03/ 0.0e+00/ 5.0e-03 Corrections: 0.120
+Epoch 2 Chain 8 lr: 0.0178 Acc: 60.95 BMA: 68.22 Best Acc: 64.54 Best BMA: 68.22 Loss: 0.806 Window 626 Trips 0 Swaps/tentative/rate/target 1/ 1.2e-02/ 1.7e-03/ 5.0e-03 Corrections: 0.120
+Epoch 2 Chain 7 lr: 0.0149 Acc: 61.33 BMA: 68.58 Best Acc: 64.70 Best BMA: 68.58 Loss: 1.037 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 8.5e-03/ 0.0e+00/ 5.0e-03 Corrections: 0.120
+Epoch 2 Chain 6 lr: 0.0123 Acc: 63.51 BMA: 68.78 Best Acc: 64.25 Best BMA: 68.78 Loss: 0.709 Window 626 Trips 0 Swaps/tentative/rate/target 1/ 1.0e-02/ 1.7e-03/ 5.0e-03 Corrections: 0.120
+Epoch 2 Chain 5 lr: 0.0103 Acc: 65.09 BMA: 68.96 Best Acc: 65.72 Best BMA: 68.96 Loss: 0.717 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 5.1e-03/ 0.0e+00/ 5.0e-03 Corrections: 0.120
+Epoch 2 Chain 4 lr: 0.0090 Acc: 66.37 BMA: 72.18 Best Acc: 67.04 Best BMA: 72.18 Loss: 0.719 Window 626 Trips 0 Swaps/tentative/rate/target 1/ 5.1e-03/ 1.7e-03/ 5.0e-03 Corrections: 0.120
+Epoch 2 Chain 3 lr: 0.0073 Acc: 66.92 BMA: 72.43 Best Acc: 68.06 Best BMA: 72.43 Loss: 0.688 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 0.0e+00/ 0.0e+00/ 5.0e-03 Corrections: 0.120
+Epoch 2 Chain 2 lr: 0.0068 Acc: 66.92 BMA: 75.35 Best Acc: 69.71 Best BMA: 75.40 Loss: 0.711 Window 626 Trips 0 Swaps/tentative/rate/target 1/ 5.1e-03/ 1.7e-03/ 5.0e-03 Corrections: 0.120
+Epoch 2 Chain 1 lr: 0.0054 Acc: 68.92 BMA: 75.35 Best Acc: 69.71 Best BMA: 75.40 Loss: 0.722 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 0.0e+00/ 0.0e+00/ 5.0e-03 Corrections: 0.120
+Epoch 2 Chain 0 lr: 0.0050 Acc: 68.80 BMA: 75.38 Best Acc: 69.71 Best BMA: 75.40 Loss: 0.731 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 0.0e+00/ 0.0e+00/ 5.0e-03 Corrections: 0.120
+Epoch 2 Chain 0 NLL: 11132.5 Best NLL: 10890.5 BMA NLL: 8425.6  Best BMA NLL: 8425.6
+
+Epoch 3 Swap chain 6 (loss 0.878) with chain 7 (loss 1.006) Cumulative swaps 1 iters 648
+Epoch 3 Swap chain 8 (loss 1.012) with chain 9 (loss 1.128) Cumulative swaps 1 iters 706
+Epoch 3 Swap chain 4 (loss 0.767) with chain 5 (loss 0.903) Cumulative swaps 1 iters 734
+Epoch 3 Chain 9 lr: 0.0200 Acc: 62.24 BMA: 69.09 Best Acc: 62.24 Best BMA: 69.09 Loss: 0.991 Window 626 Trips 0 Swaps/tentative/rate/target 1/ 7.7e-03/ 1.3e-03/ 5.0e-03 Corrections: 0.126
+Epoch 3 Chain 8 lr: 0.0165 Acc: 64.16 BMA: 70.62 Best Acc: 64.54 Best BMA: 70.62 Loss: 0.779 Window 626 Trips 0 Swaps/tentative/rate/target 1/ 1.0e-02/ 1.3e-03/ 5.0e-03 Corrections: 0.126
+Epoch 3 Chain 7 lr: 0.0154 Acc: 61.80 BMA: 70.64 Best Acc: 64.70 Best BMA: 70.64 Loss: 0.791 Window 626 Trips 0 Swaps/tentative/rate/target 1/ 8.9e-03/ 1.3e-03/ 5.0e-03 Corrections: 0.126
+Epoch 3 Chain 6 lr: 0.0114 Acc: 66.31 BMA: 71.60 Best Acc: 66.31 Best BMA: 71.60 Loss: 0.780 Window 626 Trips 0 Swaps/tentative/rate/target 1/ 7.7e-03/ 1.3e-03/ 5.0e-03 Corrections: 0.126
+Epoch 3 Chain 5 lr: 0.0110 Acc: 65.11 BMA: 71.89 Best Acc: 65.72 Best BMA: 71.89 Loss: 0.675 Window 626 Trips 0 Swaps/tentative/rate/target 1/ 6.4e-03/ 1.3e-03/ 5.0e-03 Corrections: 0.126
+Epoch 3 Chain 4 lr: 0.0086 Acc: 66.16 BMA: 72.82 Best Acc: 67.04 Best BMA: 72.82 Loss: 0.781 Window 626 Trips 0 Swaps/tentative/rate/target 1/ 5.1e-03/ 1.3e-03/ 5.0e-03 Corrections: 0.126
+Epoch 3 Chain 3 lr: 0.0072 Acc: 67.25 BMA: 72.32 Best Acc: 68.06 Best BMA: 72.43 Loss: 0.743 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 0.0e+00/ 0.0e+00/ 5.0e-03 Corrections: 0.126
+Epoch 3 Chain 2 lr: 0.0069 Acc: 67.36 BMA: 75.39 Best Acc: 69.71 Best BMA: 75.40 Loss: 0.735 Window 626 Trips 0 Swaps/tentative/rate/target 1/ 5.1e-03/ 1.3e-03/ 5.0e-03 Corrections: 0.126
+Epoch 3 Chain 1 lr: 0.0053 Acc: 69.16 BMA: 75.35 Best Acc: 69.71 Best BMA: 75.40 Loss: 0.580 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 0.0e+00/ 0.0e+00/ 5.0e-03 Corrections: 0.126
+Epoch 3 Chain 0 lr: 0.0050 Acc: 69.06 BMA: 75.36 Best Acc: 69.71 Best BMA: 75.40 Loss: 0.558 Window 626 Trips 0 Swaps/tentative/rate/target 0/ 0.0e+00/ 0.0e+00/ 5.0e-03 Corrections: 0.126
+Epoch 3 Chain 0 NLL: 11151.1 Best NLL: 10890.5 BMA NLL: 8421.5  Best BMA NLL: 8421.5
+
