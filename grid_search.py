@@ -42,7 +42,7 @@ for _ in range(1):
     scale =  secure_random.choice(['10'])
     correction = secure_random.choice(['0.1'])
     swap_rate = secure_random.choice(['5e-3'])
-    window = secure_random.choice(['0', '626'])
+    window = secure_random.choice(['1'])
     if window == '0':
         """ direct 0 to the optimal """
         window = str(int(np.ceil((np.log(int(chains)) + np.log(np.log(int(chains)))) / -np.log(1 - float(swap_rate)))))

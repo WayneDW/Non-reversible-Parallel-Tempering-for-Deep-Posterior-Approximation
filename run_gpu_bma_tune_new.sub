@@ -1,0 +1,26 @@
+#!/bin/sh -l
+# FILENAME:  run_gpu.sub
+
+
+
+#SBATCH -A parter
+#SBATCH --nodes=1 
+#SBATCH --time=23:50:00
+#SBATCH --job-name PT_tune
+
+#SBATCH --output=/home/deng106/Non-Reversible-Parallel-Tempering/output/.bak/run.log
+#SBATCH --error=/home/deng106/Non-Reversible-Parallel-Tempering/output/.bak/run.log
+
+module purge
+module load gcc/5.2.0
+module load learning/conda-5.1.0-py27-gpu
+module load cuda/9.0.176
+#module load cudnn/cuda-9.1.85
+#module --ignore-cache load "cudnn/cuda-9.1.85"
+#source activate pytorch-test
+#module spider cuda
+
+
+cd /home/deng106/Non-Reversible-Parallel-Tempering/
+# qsub -q partner run_gpu_bma_tune.sub
+python grid_search.py 0
