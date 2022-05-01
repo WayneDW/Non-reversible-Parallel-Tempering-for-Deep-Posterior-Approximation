@@ -3,9 +3,8 @@
 import os, sys, re
 from glob import glob
 
-
 for filename in glob('./output*'):
-
+    num_swaps, mae = -1, -1
     for line in open(filename):
         line = line.strip()
         #m = re.match(r'\"Number of swaps\" \"(\d+)\"', line)
@@ -19,5 +18,5 @@ for filename in glob('./output*'):
 
 
     print(f'Swaps {num_swaps} MAE {mae}')
-    if not filename.endswith('_end'):
+    if not filename.endswith('_end') and num_swaps != -1 and mae != -1:
         os.system(f'mv {filename} {filename}_swap_{num_swaps}_MAE_{mae}_end')
