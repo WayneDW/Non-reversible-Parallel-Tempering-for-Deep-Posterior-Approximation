@@ -7,6 +7,7 @@ sd_energy = as.numeric(myargs[1])
 window = as.numeric(myargs[2])
 correction = as.numeric(myargs[3])
 our_seed = as.numeric(myargs[4])
+lr = as.numeric(myargs[5])
 
 set.seed(our_seed)
 
@@ -17,7 +18,7 @@ nosiy_f = function(x) return(f(x) + rnorm(1, 0, sd_energy))
 
 
 # Important hyperparameters
-lr = 0.03
+#lr = 0.01
 T_high = 10
 T_low = 1
 
