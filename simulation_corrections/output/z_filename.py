@@ -3,7 +3,7 @@
 import os, sys, re
 from glob import glob
 
-for filename in glob('./output*'):
+for filename in glob('./output_lr_*_sd*'):
     num_swaps, mae = -1, -1
     for line in open(filename):
         line = line.strip()
