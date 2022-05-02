@@ -14,15 +14,15 @@ for _ in range(1):
     if window == 0:
         window = secure_random.choice([1, 3, 10, 30, 100, 300, 1000])
 
-    window = secure_random.choice([10])
+    window = secure_random.choice([3, 30, 100, 300])
     if window == 1:
         correction = 0
     elif window == 3:
         correction = secure_random.choice([1])
     elif window == 10:
-        correction = secure_random.choice([1.3, 1.3, 1.5, 1.5, 1.7])
+        correction = secure_random.choice([1.5])
     elif window == 30:
-        correction = secure_random.choice([2.3])
+        correction = secure_random.choice([2.3, 2.6])
     elif window == 100:
         correction = secure_random.choice([3.3])
     elif window == 300:
