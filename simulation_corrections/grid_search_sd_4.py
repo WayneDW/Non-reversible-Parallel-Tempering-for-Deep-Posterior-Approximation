@@ -12,7 +12,7 @@ for _ in range(2):
     sd = secure_random.choice([4])
     window = secure_random.choice([3, 10, 30, 100, 300, 300, 300, 300, 1000])
 
-    window = secure_random.choice([3, 1000])
+    window = secure_random.choice([100, 100, 100, 1000])
     if window == 1:
         correction = 0
     elif window == 3:
@@ -23,11 +23,11 @@ for _ in range(2):
         #correction = secure_random.choice([2.5, 2.7, 3.0, 3.3, 3.5])
         correction = secure_random.choice([1.6, 1.8, 2.0, 2.2])
     elif window == 100:
-        correction = secure_random.choice([2.4, 2.6, 2.8, 3.0, 3.2])
+        correction = secure_random.choice([2.0, 2.1, 2.2, 2.3, 2.4, 2.6])
     elif window == 300:
         correction = secure_random.choice([2.4, 2.6, 2.8, 3.0, 3.2, 3.4, 3.6])
     elif window == 1000:
-        correction = secure_random.choice([3.4, 3.6, 4.8, 5.0])
+        correction = secure_random.choice([5.0, 5.2])
 
     lr = 0.01
     #print(f'/usr/bin/Rscript sample_code.r {sd} {window} {correction} {seed} > output/output_sd_{sd}_window_{window}_corr_{correction}_seed_{seed}')
