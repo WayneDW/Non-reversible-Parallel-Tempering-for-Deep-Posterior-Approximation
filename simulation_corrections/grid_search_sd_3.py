@@ -7,28 +7,28 @@ import sys
 secure_random = random.SystemRandom()
 
 
-for _ in range(2):
+for _ in range(1):
     seed = str(random.randint(1, 10**5))
     sd = secure_random.choice([3])
     window = secure_random.choice([1, 3, 10, 30, 100, 300, 1000])
     if window == 0:
         window = secure_random.choice([1, 3, 10, 30, 100, 300, 1000])
 
-    window = secure_random.choice([3, 1000])
+    window = secure_random.choice([10])
     if window == 1:
         correction = 0
     elif window == 3:
-        correction = secure_random.choice([1.6, 1.4, 1.2, 1.0, 0.8])
+        correction = secure_random.choice([1])
     elif window == 10:
-        correction = secure_random.choice([1.7, 2.0, 2.3, 2.6, 3.0])
+        correction = secure_random.choice([1.3, 1.3, 1.5, 1.5, 1.7])
     elif window == 30:
-        correction = secure_random.choice([1.7, 2.0, 2.3, 2.6, 3.0, 3.3])
+        correction = secure_random.choice([2.3])
     elif window == 100:
-        correction = secure_random.choice([2.0, 2.3, 2.6, 3.0, 3.3, 3.6, 4.0])
+        correction = secure_random.choice([3.3])
     elif window == 300:
-        correction = secure_random.choice([4.4, 4.6, 4.8, 5.0])
+        correction = secure_random.choice([4.4])
     elif window == 1000:
-        correction = secure_random.choice([5.2, 5.4, 5.6, 5.8, 6])
+        correction = secure_random.choice([5.4])
 
     lr = 0.01
     #print(f'/usr/bin/Rscript sample_code.r {sd} {window} {correction} {seed} > output/output_sd_{sd}_window_{window}_corr_{correction}_seed_{seed}')
