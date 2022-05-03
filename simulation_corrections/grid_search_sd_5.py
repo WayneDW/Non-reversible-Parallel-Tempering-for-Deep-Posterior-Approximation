@@ -7,21 +7,21 @@ import sys
 secure_random = random.SystemRandom()
 
 
-for _ in range(20):
+for _ in range(2):
     seed = str(random.randint(1, 10**5))
     sd = secure_random.choice([5])
     window = secure_random.choice([1, 3, 10, 30, 100, 300, 1000, 3, 10, 30, 100, 300])
-
+    window = secure_random.choice([10, 30, 100])
     if window == 1:
         correction = 0
     elif window == 3:
         correction = secure_random.choice([0.1, 0.2, 0.3, 0.4, 0.5, 0.6])
     elif window == 10:
-        correction = secure_random.choice([0.2, 0.3, 0.4, 0.5, 0.6, 0.7])
+        correction = secure_random.choice([0.2, 0.3, 0.6, 0.7])
     elif window == 30:
-        correction = secure_random.choice([0.3, 0.4, 0.5, 0.6, 0.7, 0.8])
+        correction = secure_random.choice([0.3, 0.8])
     elif window == 100:
-        correction = secure_random.choice([0.4, 0.5, 0.6, 0.7, 0.8, 0.9])
+        correction = secure_random.choice([0.7, 1.1])
     elif window == 300:
         correction = secure_random.choice([1.1])
     elif window == 1000:
