@@ -15,17 +15,17 @@ for _ in range(10):
     if window == 1:
         correction = 0
     elif window == 3:
-        correction = secure_random.choice([0.3, 0.5, 0.7])
+        correction = secure_random.choice([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7])
     elif window == 10:
         correction = secure_random.choice([0.8, 1.0, 1.2, 1.4])
     elif window == 30:
-        correction = secure_random.choice([1.0, 1.0, 1.2, 1.4, 1.6])
+        correction = secure_random.choice([0.8, 1.0, 1.2, 1.4, 1.6, 1.8])
     elif window == 100:
-        correction = secure_random.choice([0.7, 0.9, 1.1, 1.3, 1.5])
+        correction = secure_random.choice([0.5, 0.7, 0.9, 1.1, 1.3])
     elif window == 300:
-        correction = secure_random.choice([1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.5, 2.7, 2.9, 3.1])
+        correction = secure_random.choice([1.0, 1.2, 1.4, 1.6])
     elif window == 1000:
-        correction = secure_random.choice([3.0, 3.2, 3.4, 3.6, 3.8])
+        correction = secure_random.choice([2.4, 2.6, 2.8, 3.0, 3.2, 3.3])
 
     lr = 0.01
     #print(f'/usr/bin/Rscript sample_code.r {sd} {window} {correction} {seed} > output/output_sd_{sd}_window_{window}_corr_{correction}_seed_{seed}')
