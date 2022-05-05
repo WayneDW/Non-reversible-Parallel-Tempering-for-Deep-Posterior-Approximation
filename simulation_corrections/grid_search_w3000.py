@@ -7,7 +7,7 @@ import sys
 secure_random = random.SystemRandom()
 
 
-for _ in range(15):
+for _ in range(10):
     seed = str(random.randint(1, 10**5))
     sd = secure_random.choice([2, 3, 4, 5])
     window = 3000
@@ -22,7 +22,7 @@ for _ in range(15):
         correction = secure_random.choice([6.6, 6.8, 7, 7.2, 7.4])
     elif sd == 0:
         correction = secure_random.choice([6.6, 6.8, 7, 7.2, 7.4])
-    correction = 0
+    #correction = 0
     lr = 0.01
     #print(f'/usr/bin/Rscript sample_code.r {sd} {window} {correction} {seed} > output/output_sd_{sd}_window_{window}_corr_{correction}_seed_{seed}')
     os.system(f'/usr/bin/Rscript sample_code.r {sd} {window} {correction} {seed} {lr} > output/output_lr_{lr}_sd_{sd}_window_{window}_corr_{correction}_seed_{seed}')
