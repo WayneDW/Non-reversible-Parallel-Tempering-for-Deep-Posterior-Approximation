@@ -9,17 +9,17 @@ secure_random = random.SystemRandom()
 
 for _ in range(10):
     seed = str(random.randint(1, 10**5))
-    sd = secure_random.choice([2, 3, 4, 5])
+    sd = secure_random.choice([0, 2, 3, 4, 5])
     window = 3000
 
     if sd == 5:
-        correction = secure_random.choice([3.0, 3.3, 3.6, 3.9, 4.2, 4.5])
+        correction = secure_random.choice([2.7, 2.9, 3.1, 3.3])
     elif sd == 4:
-        correction = secure_random.choice([4.8, 5.0, 5.2, 5.4, 5.6])
+        correction = secure_random.choice([5.8, 6.0, 6.2])
     elif sd == 3:
-        correction = secure_random.choice([6.0, 6.2, 6.4, 6.6, 6.8])
+        correction = secure_random.choice([7.0, 7.2, 7.4])
     elif sd == 2:
-        correction = secure_random.choice([6.6, 6.8, 7, 7.2, 7.4])
+        correction = secure_random.choice([6.1, 6.3, 6.5])
     elif sd == 0:
         correction = secure_random.choice([6.6, 6.8, 7, 7.2, 7.4])
     #correction = 0
