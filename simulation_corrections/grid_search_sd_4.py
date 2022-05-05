@@ -10,9 +10,9 @@ secure_random = random.SystemRandom()
 for _ in range(10):
     seed = str(random.randint(1, 10**5))
     sd = secure_random.choice([4])
-    window = secure_random.choice([3, 10, 30, 100, 300, 1000])
+    window = secure_random.choice([3, 10, 30, 100, 300])
 
-    window = secure_random.choice([1000])
+    #window = secure_random.choice([1000])
     if window == 1:
         correction = 0
     elif window == 3:
