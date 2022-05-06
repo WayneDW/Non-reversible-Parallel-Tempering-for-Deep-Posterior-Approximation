@@ -7,12 +7,12 @@ import sys
 secure_random = random.SystemRandom()
 
 
-for _ in range(2):
+for _ in range(10):
     seed = str(random.randint(1, 10**5))
-    sd = secure_random.choice([4])#, 2, 3, 4, 5, 4, 3, 2, 4, 3, 2, 0])
-    window = secure_random.choice([10])
+    sd = secure_random.choice([0])#, 2, 3, 4, 5, 4, 3, 2, 4, 3, 2, 0])
+    window = secure_random.choice([3])
     if sd == 0:
-        correction = secure_random.choice([0.85, 0.9, 0.95])
+        correction = secure_random.choice([0.65, 0.7, 0.75])
     elif sd == 2:
         correction = secure_random.choice([0.55, 0.65, 0.75, 0.9])
     elif sd == 3:
