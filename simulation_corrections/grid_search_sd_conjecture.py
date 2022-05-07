@@ -7,10 +7,10 @@ import sys
 secure_random = random.SystemRandom()
 
 
-for _ in range(15):
+for _ in range(5):
     seed = str(random.randint(1, 10**5))
     sd = secure_random.choice([0])
-    window = secure_random.choice([300, 300, 3000, 100, 100, 30, 30, 10, 10, 3, 3])
+    window = secure_random.choice([300, 300, 3000, 3000, 100, 100, 30, 30, 10, 10, 3, 3, 1])
     if window == 1:
         correction = 0
     elif window == 3:
@@ -29,5 +29,4 @@ for _ in range(15):
         correction = secure_random.choice([7.4, 7.5, 7.6, 7.7, 7.8])
     #correction = 0
     lr = 0.01
-    print(f'/usr/bin/Rscript sample_code_high_t_5.r {sd} {window} {correction} {seed} {lr} > output/output_lr_{lr}_sd_{sd}_window_{window}_corr_{correction}_high_tau_5_seed_{seed}')
-    os.system(f'/usr/bin/Rscript sample_code_high_t_3.r {sd} {window} {correction} {seed} {lr} > output/output_lr_{lr}_sd_{sd}_window_{window}_corr_{correction}_high_tau_3_seed_{seed}')
+    os.system(f'/usr/bin/Rscript sample_code_high_t_4.r {sd} {window} {correction} {seed} {lr} > output/output_lr_{lr}_sd_{sd}_window_{window}_corr_{correction}_high_tau_4_seed_{seed}')
