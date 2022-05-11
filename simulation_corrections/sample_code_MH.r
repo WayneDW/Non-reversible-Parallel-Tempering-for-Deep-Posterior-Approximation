@@ -38,7 +38,6 @@ total = 10000000
 samples_ptsgld = c()
 x_low = 0
 counter = 0
-window = 10
 gate = 1 
 swaps = 0
 for (i in 1:part1) {
