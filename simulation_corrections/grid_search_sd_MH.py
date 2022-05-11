@@ -29,5 +29,5 @@ for _ in range(40):
         correction = secure_random.choice([0.56, 0.58, 0.60, 0.62, 0.64, 0.66, 0.68, 0.70])
     elif window == 3000:
         correction = secure_random.choice([0.60, 0.62, 0.64, 0.66, 0.68, 0.70, 0.72, 0.74])
-    sd_proposal = secure_random.choice([1, 2, 3, 4])
+    sd_proposal = secure_random.choice([2])
     os.system(f'/usr/bin/Rscript sample_code_MH.r {sd} {window} {correction} {seed} {sd_proposal} > output/output_sd_proposal_{sd_proposal}_sd_{sd}_window_{window}_corr_{correction}_MH_seed_{seed}')
