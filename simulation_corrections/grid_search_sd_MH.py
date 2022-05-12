@@ -11,7 +11,7 @@ for _ in range(2):
     seed = str(random.randint(1, 10**5))
     sd = secure_random.choice([0])
     window = secure_random.choice([1, 2, 3, 10, 30, 100, 300, 1000, 3000])
-    window = 30
+    window = 100
     if window == 1:
         correction = 0
     elif window == 2:
@@ -21,9 +21,9 @@ for _ in range(2):
     elif window == 10:
         correction = secure_random.choice([0.46])
     elif window == 30:
-        correction = secure_random.choice([0.51, 0.52, 0.53, 0.54, 0.55, 0.56, 0.57, 0.58, 0.59])
+        correction = secure_random.choice([0.58])
     elif window == 100:
-        correction = secure_random.choice([0.48, 0.49, 0.50, 0.51, 0.52])
+        correction = secure_random.choice([0.60, 0.62, 0.64, 0.66, 0.68, 0.70, 0.72, 0.74, 0.76, 0.78, 0.8])
     elif window == 300:
         correction = secure_random.choice([0.50, 0.51, 0.52, 0.53, 0.54, 0.56, 0.58, 0.60])
     elif window == 1000:
