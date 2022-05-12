@@ -17,7 +17,7 @@ for _ in range(2):
     elif window == 2:
         correction = secure_random.choice([0.07])
     elif window == 3:
-        correction = secure_random.choice([0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19])
+        correction = secure_random.choice([0.20, 0.22, 0.24, 0.26, 0.28, 0.30, 0.32])
     elif window == 10:
         correction = secure_random.choice([0.45, 0.46, 0.47, 0.48, 0.49])
     elif window == 30:
