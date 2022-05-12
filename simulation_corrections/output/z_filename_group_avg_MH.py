@@ -14,7 +14,10 @@ for filename in glob('./output*sd*MH*'):
         #m = re.match(r'\"Number of swaps\" \"(\d+)\"', line)
         m = re.match(r'.*Number of swaps" "(.+)"', line)
         if m:
-            num_swaps = int(m.group(1))
+            try:
+                num_swaps = int(m.group(1))
+            except:
+                print(m.group(1))
 
         m = re.match(r'.*Sum of error"(.+)"(.+)"', line)
         if m:
