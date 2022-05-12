@@ -7,7 +7,7 @@ import sys
 secure_random = random.SystemRandom()
 
 
-for _ in range(2):
+for _ in range(1):
     seed = str(random.randint(1, 10**5))
     sd = secure_random.choice([0])
     window = secure_random.choice([1, 2, 3, 10, 30, 100, 300, 1000, 3000])
