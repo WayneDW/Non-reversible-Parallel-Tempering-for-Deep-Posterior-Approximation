@@ -7,10 +7,10 @@ import sys
 secure_random = random.SystemRandom()
 
 
-for _ in range(5):
+for _ in range(2):
     seed = str(random.randint(1, 10**5))
     sd = secure_random.choice([6])
-    window = secure_random.choice([300])
+    window = secure_random.choice([100])
     if window == 1:
         correction = 0 # 3.97e-2
     elif window == 3:
@@ -20,7 +20,7 @@ for _ in range(5):
     elif window == 30:
         correction = secure_random.choice([0.5]) # 16/ 3.31e-2
     elif window == 100:
-        correction = secure_random.choice([1.1]) # _1.1_no_DEO cnt 11 MAE  3.59e-02
+        correction = secure_random.choice([0.5, 1.1, 1.25, 1.0]) # _1.1_no_DEO cnt 11 MAE  3.59e-02
     elif window == 300:
         correction = secure_random.choice([1.30, 1.35, 1.40, 1.45, 1.50, 1.55, 1.60]) # 23/ 4.28e-2
     elif window == 1000:
