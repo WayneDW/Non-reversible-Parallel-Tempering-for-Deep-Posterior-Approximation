@@ -96,4 +96,5 @@ x_ticks = np.arange(-6, 5, 0.1)
 MAE = np.mean(np.abs(gaussian_kde(real_samples)(x_ticks) - gaussian_kde(sampler_PT.samples)(x_ticks)))
 print(f'MAE {MAE: .2e}')
 
-
+MAE = np.mean(np.abs(gaussian_kde(real_samples)(x_ticks) - gaussian_kde(sampler_PT_100_38_0.samples)(x_ticks)))
+print(f'MAE {MAE: .2e}')
