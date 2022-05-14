@@ -2,7 +2,7 @@
 
 import sys
 import autograd.numpy as np
-from autograd import grad
+#from autograd import grad
 #from autograd.scipy.stats import norm
 from scipy.stats import norm
 from scipy.stats import gaussian_kde
@@ -14,11 +14,15 @@ from matplotlib import rcParams
 
 from tqdm import tqdm
 
+import jax.numpy as jnp
+from jax import grad
+
+TF_CPP_MIN_LOG_LEVEL=0
 
 num_samples = int(sys.argv[1])
 
 def gaussian_density(x, mean, sd):
-    return 1. / sd / np.sqrt(2 * np.pi) * np.exp(-0.5 * (x-mean)**2 / sd**2)
+    return 1. / sd / jnp.sqrt(2 * jnp.pi) * jnp.exp(-0.5 * (x-mean)**2 / sd**2)
 
 def gaussian_mixture_density(x):
     return 0.4 * gaussian_density(x, -4, 0.7) + 0.6 * gaussian_density(x, 3, 0.5)
@@ -28,7 +32,7 @@ def gaussian_mixture_density(x):
 
 
 def energy_function(x):
-    return -np.log(gaussian_mixture_density(x))
+    return -jnp.log(gaussian_mixture_density(x))
 
 energy_gradient = grad(energy_function)
 
@@ -95,5 +99,4 @@ x_ticks = np.arange(-6, 5, 0.1)
 
 MAE = np.mean(np.abs(gaussian_kde(real_samples)(x_ticks) - gaussian_kde(sampler_PT.samples)(x_ticks)))
 print(f'MAE {MAE: .2e}')
-
 

@@ -17,20 +17,14 @@ from tqdm import tqdm
 
 num_samples = int(sys.argv[1])
 
-def gaussian_density(x, mean, sd):
-    return 1. / sd / np.sqrt(2 * np.pi) * np.exp(-0.5 * (x-mean)**2 / sd**2)
-
-def gaussian_mixture_density(x):
-    return 0.4 * gaussian_density(x, -4, 0.7) + 0.6 * gaussian_density(x, 3, 0.5)
-
-#def gaussian_mixture_density(x):
-#    return 0.4 * NormalDist(mu=-4, sigma=0.7).pdf(x) + 0.6 * NormalDist(mu=3, sigma=0.5).pdf(x)
-
+mode1 = norm(loc=-4, scale=0.7)
+mode2 = norm(loc=3, scale=0.5)
 
 def energy_function(x):
-    return -np.log(gaussian_mixture_density(x))
+    return -np.log(0.4 * mode1.pdf(x) + 0.6 * mode2.pdf(x))
 
-energy_gradient = grad(energy_function)
+def grad(x):
+    return (energy_function(x+1e-10) - energy_function(x-1e-10)) / 2e-10
 
 def noisy_energy(x, std): return energy_function(x) + norm.rvs(size=1, loc=0, scale=std)
 
@@ -59,8 +53,8 @@ class PT_sampler:
                 gate = 1
             
             """ parallel samplers with different temperatures """
-            self.x_low += -self.lr * energy_gradient(self.x_low) + norm.rvs(scale=scale_low)
-            self.x_high += -self.lr * energy_gradient(self.x_high) + norm.rvs(scale=scale_high)
+            self.x_low += -self.lr * grad(self.x_low) + norm.rvs(scale=scale_low)
+            self.x_high += -self.lr * grad(self.x_high) + norm.rvs(scale=scale_high)
             
             
             """ compute swap rate """
