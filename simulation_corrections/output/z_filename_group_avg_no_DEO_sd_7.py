@@ -7,7 +7,7 @@ from glob import glob
 group_to_mae = {}
 group_to_swaps = {}
 cnt_to_mae = {}
-for filename in glob('./output*sd*sd_7*'):
+for filename in glob('./output_lr_0.005*sd*sd_7*'):
     num_swaps, mae = 0, 0
     for line in open(filename):
         line = line.strip()

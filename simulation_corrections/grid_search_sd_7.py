@@ -27,6 +27,6 @@ for _ in range(5):
         correction = secure_random.choice([0])
     elif window == 3000:
         correction = secure_random.choice([0])
-    lr = 0.005
+    lr = 0.01
     #print(f'/usr/bin/Rscript sample_code.r {sd} {window} {correction} {seed} > output/output_sd_{sd}_window_{window}_corr_{correction}_seed_{seed}')
     os.system(f'/usr/bin/Rscript sample_code_no_DEO_sd_7.r {sd} {window} {correction} {seed} {lr} > output/output_lr_{lr}_sd_{sd}_window_{window}_corr_{correction}_sd_7_seed_{seed}')
