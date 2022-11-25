@@ -1,7 +1,7 @@
 """
-Code for Non-reversible Parallel Tempering for Uncertainty Approximation
-(c) Anonymous authors
-Nov 8, 2021
+Code for Non-reversible Parallel Tempering for Deep Posterior Approximation
+(c) Wei Deng
+Nov 24, 2022
 
 Note that in Bayesian settings, the lr 2e-6 and weight decay 25 are equivalent to lr 0.1 and weight decay 5e-4 in standard setups.
 """
