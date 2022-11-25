@@ -1,7 +1,7 @@
 """
-Code for Non-reversible Parallel Tempering for Uncertainty Approximation
-(c) Anonymous authors
-Nov 8, 2021
+Code for Non-reversible Parallel Tempering for Deep Posterior Approximation
+(c) Wei Deng
+Nov 24, 2022
 """
 
 #!/usr/bin/python
