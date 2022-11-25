@@ -1,6 +1,15 @@
-# Non-reversible Parallel Tempering for Uncertainty Approximation in Deep Learning
+# Non-reversible Parallel Tempering for Deep Posterior Approximation
 
 A user-friendly parallel tempering algorithm that tracks the non-reversibility property with an optimal round trip time in deep learning. We adopt stochastic gradient descent (SGD) with large and constant learning rates as user-friendly exploration kernels.
+
+```
+@inproceedings{NTPT_big_data,
+  title={Non-reversible Parallel Tempering for Deep Posterior Approximation},
+  author={Wei Deng and Qian Zhang and Qi Feng and Faming Liang and Guang Lin},
+  booktitle={Thirty-Seventh AAAI Conference on Artificial Intelligence (AAAI'23)},
+  year={2023}
+}
+```
 
 ### Requirement
 * Python 2.7
