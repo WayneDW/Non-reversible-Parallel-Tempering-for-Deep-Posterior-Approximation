@@ -1,7 +1,7 @@
 """
-Code for Non-reversible Parallel Tempering for Uncertainty Approximation
-(c) Anonymous authors
-Nov 8, 2021
+Code for Non-reversible Parallel Tempering for Deep Posterior Approximation
+(c) Wei Deng
+Nov 24, 2022
 
 This file is a baseline sampler to run cyclic SG-MCMC
     It is used in the exploitation period of the cyclic SG-MCMC and SWAG algorithms
