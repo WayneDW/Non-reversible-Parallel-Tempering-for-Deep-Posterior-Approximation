@@ -1,6 +1,6 @@
 # Non-reversible Parallel Tempering for Deep Posterior Approximation
 
-A user-friendly parallel tempering algorithm that tracks the non-reversibility property with an optimal round trip time in deep learning. We adopt stochastic gradient descent (SGD) with large and constant learning rates as user-friendly exploration kernels.
+A user-friendly parallel tempering algorithm [Link](https://arxiv.org/pdf/2211.10837) that tracks the non-reversibility property with an optimal round trip time in deep learning. We adopt stochastic gradient descent (SGD) with large and constant learning rates as user-friendly exploration kernels.
 
 ```
 @inproceedings{NTPT_big_data,
